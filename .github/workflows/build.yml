@@ -23,7 +23,7 @@ jobs:
     name: PR Workflow
     # If any dependent jobs fails, this WF skips which won't block merging PRs
     # calling always() is required for this WF to run all the time
-    if: github.repository_owner == 'aws' && always()
+    if: github.repository_owner == 'valerena' && always()
     runs-on: ubuntu-latest
     needs:
       - make-pr
@@ -45,7 +45,7 @@ jobs:
 
   make-pr:
     name: make pr / ${{ matrix.os }} / ${{ matrix.python }}
-    if: github.repository_owner == 'aws'
+    if: github.repository_owner == 'valerena'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -73,7 +73,7 @@ jobs:
 
   validate-schema:
     name: Validate JSON schema
-    if: github.repository_owner == 'aws'
+    if: github.repository_owner == 'valerena'
     permissions:
       pull-requests: write
       contents: write
@@ -96,7 +96,7 @@ jobs:
 
   integration-tests:
     name: Integ / ${{ matrix.os }} / ${{ matrix.python }} / ${{ matrix.tests_config.name }}
-    if: github.repository_owner == 'aws'
+    if: github.repository_owner == 'valerena'
     runs-on: ${{ matrix.os }}
     env:
       AWS_DEFAULT_REGION: us-east-1
@@ -198,7 +198,7 @@ jobs:
 
   smoke-and-functional-tests:
     name: ${{ matrix.tests_config.name }} / ${{ matrix.tests_config.os }} / ${{ matrix.python }}
-    if: github.repository_owner == 'aws'
+    if: github.repository_owner == 'valerena'
     runs-on: ${{ matrix.tests_config.os }}
     env:
       AWS_DEFAULT_REGION: us-east-1
@@ -250,7 +250,7 @@ jobs:
 
   docker-disabled:
     name: Docker-disabled Tests / ${{ matrix.os }}
-    if: github.repository_owner == 'aws'
+    if: github.repository_owner == 'valerena'
     runs-on: ${{ matrix.os }}
     env:
       SAM_CLI_DEV: "1"
